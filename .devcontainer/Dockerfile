@@ -24,7 +24,8 @@ RUN apt-get -y install --no-install-recommends \
     ca-certificates \
     gnupg-agent \
     software-properties-common \
-    git
+    git \
+    openssh-client 
 
 # Install Azure cli
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
