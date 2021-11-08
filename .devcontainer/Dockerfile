@@ -30,6 +30,7 @@ RUN apt-get -y install --no-install-recommends \
 # Install Azure cli
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
+# Install .Net Core SDK 3.1
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg \
    && mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ \
    && wget -q https://packages.microsoft.com/config/debian/9/prod.list \
@@ -38,6 +39,7 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
    && chown root:root /etc/apt/sources.list.d/microsoft-prod.list \
    && apt-get update && apt-get install dotnet-sdk-3.1 -y --no-install-recommends
 
+#INstall .Net Core SDK 2.1
    RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg \
    && mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ \
    && wget -q https://packages.microsoft.com/config/debian/9/prod.list \
@@ -45,6 +47,27 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
    && chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg \
    && chown root:root /etc/apt/sources.list.d/microsoft-prod.list \
    && apt-get update && apt-get install dotnet-sdk-2.1 -y --no-install-recommends
+
+# Install Docker
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+   && add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   stretch \
+   stable" \
+   && apt-get update && apt-get install -y --no-install-recommends \
+    docker-ce \
+    docker-ce-cli \
+   && curl -L "https://github.com/docker/compose/releases/download/2.1.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
+   && chmod +x /usr/local/bin/docker-compose
+
+# Install kubectl
+RUN apt-get update && apt-get install --no-install-recommends -y apt-transport-https \
+   && curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
+   && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
+   && apt-get update && apt-get install --no-install-recommends -y kubectl
+
+# Install helm
+RUN curl -sL https://git.io/get_helm.sh | bash
 
 WORKDIR /apim
 
