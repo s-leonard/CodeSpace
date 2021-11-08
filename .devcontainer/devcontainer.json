@@ -15,9 +15,15 @@
         "files.eol": "\n"
     },
     "extensions": [
+	"ms-kubernetes-tools.vscode-kubernetes-tools",
+	"mindaro.mindaro",
+	"ms-azuretools.vscode-docker",
+	"ms-dotnettools.csharp",
+	"ms-azuretools.vscode-dapr",
         "ms-vscode.azurecli",
         "ms-azure-devops.azure-pipelines",
         "ms-vscode.csharp",
+	"humao.rest-client",
         "redhat.vscode-yaml"
     ]
 }
