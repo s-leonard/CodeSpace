@@ -1,7 +1,7 @@
 # Demo CodeSpace
 
 
-# Check all is installed 
+# Check all is installed - hello
 
 Open Terminal and run each command 
 
